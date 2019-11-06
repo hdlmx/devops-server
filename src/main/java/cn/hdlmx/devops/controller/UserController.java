@@ -25,6 +25,7 @@ public class UserController {
         Role role = new Role("1", "管理员");
         User user = new User("1002", "muxin", "穆昕", "love68946hd", role);
         int result = userService.save(user);
+        System.out.println();
         return result + "";
     }
 }
