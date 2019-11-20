@@ -1,5 +1,12 @@
 package cn.hdlmx.devops.pojo;
 
+/**
+ * 用户
+ *
+ * @author 韩东
+ * @version 1.0
+ * @date 2019/11/6 15:04
+ */
 public class User {
     private String userId;
     private String userName;

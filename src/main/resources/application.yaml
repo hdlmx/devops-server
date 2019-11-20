@@ -1,7 +1,7 @@
 kubernetes:
   configPath: D:/config
 server:
-  port: 80
+  port: 8080
 
 spring:
   datasource:
@@ -26,9 +26,12 @@ spring:
     validation-query: SELECT 1 FROM DUAL
     test-while-idle: true
   security:
+    basic:
+      enabled: false
+
     user:
       name: handong
-      password: hdlmx522104
+      password: handong
 
 #logging:
 #  config: src/main/resources/logback.xml
@@ -36,3 +39,7 @@ spring:
 mybatis:
   config-location: classpath:mybatis-config.xml
   mapper-locations: classpath:/cn/hdlmx/devops/mapper/*.xml
+  #configuration:
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
