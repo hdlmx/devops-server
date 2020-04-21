@@ -1,5 +1,7 @@
 package cn.hdlmx.devops.pojo;
 
+import cn.hdlmx.devops.emun.RoleEnum;
+
 /**
  * 角色
  *
@@ -9,29 +11,17 @@ package cn.hdlmx.devops.pojo;
  */
 public class Role {
     private String roleId;
-    private String roleName;
+    private RoleEnum roleType;
 
     public Role() {
     }
 
-    public Role(String roleId, String roleName) {
+    public Role(String roleId, RoleEnum roleType) {
         this.roleId = roleId;
-        this.roleName = roleName;
+        this.roleType = roleType;
     }
 
-    public String getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public Role(RoleEnum roleType) {
+        this.roleType = roleType;
     }
 }

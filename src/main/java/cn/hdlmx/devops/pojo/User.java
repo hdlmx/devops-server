@@ -7,7 +7,7 @@ package cn.hdlmx.devops.pojo;
  * @version 1.0
  * @date 2019/11/6 15:04
  */
-public class User {
+public abstract class User {
     private String userId;
     private String userName;
     private String trueName;
@@ -23,6 +23,18 @@ public class User {
         this.trueName = trueName;
         this.password = password;
         this.role = role;
+    }
+
+    public User(String userId, String userName, String trueName, String password) {
+        this.userId = userId;
+        this.userName = userName;
+        this.trueName = trueName;
+        this.password = password;
+    }
+    public User(String userName, String trueName, String password) {
+        this.userName = userName;
+        this.trueName = trueName;
+        this.password = password;
     }
 
     public String getUserId() {

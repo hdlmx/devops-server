@@ -9,11 +9,14 @@ import java.util.Date;
  * @version 1.0
  * @date 2019/11/6 15:03
  */
-public class Application {
+public class Application extends Project {
     /**
      * 应用程序iId
      */
     private String appId;
+    /*
+     * */
+    private Project project;
     /**
      * 应用程序名称
      */
@@ -49,6 +52,14 @@ public class Application {
 
     public void setAppId(String appId) {
         this.appId = appId;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public String getName() {
@@ -106,4 +117,5 @@ public class Application {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
 }

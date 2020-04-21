@@ -4,7 +4,7 @@
 <mapper namespace="cn.hdlmx.devops.dao.ApplicationDao">
     <resultMap id="ApplicationResultMap" type="cn.hdlmx.devops.pojo.Application">
         <id column="id" property="appId"/>
-        <result property="name" column="name"/>
+        <result property="name" column="appName"/>
         <result property="mark" column="mark"/>
         <result property="createTime" column="createTime"/>
         <result property="projectNamespace" column="projectNamespace"/>
@@ -12,21 +12,29 @@
         <association property="language" resultMap="Language"/>
     </resultMap>
     <resultMap id="GitRepository" type="cn.hdlmx.devops.pojo.GitRepository">
-        <id property="id" column="id"/>
+        <id property="id" column="gitRepositoryId"/>
         <result property="url" column="url"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
     </resultMap>
     <resultMap id="Language" type="cn.hdlmx.devops.pojo.Language">
-        <id property="id" column="id"/>
-        <result property="name" column="name"/>
+        <id property="id" column="languageId"/>
+        <result property="name" column="languageType"/>
     </resultMap>
     <insert id="save">
        insert into application(appId,name,mark,gitReositoryId,language,projectNamespace,createTime)
        values(#{appId},#{name},#{mark},#{gitRepository.id},#{language.id},#{projectNamespace},#{createTime})
     </insert>
     <select id="list" resultMap="ApplicationResultMap">
-        select * from application a,gitRepository g,Language l where a.gitReositoryId=g.id and a.language=l.id and a.projectNamespace=#{projectNamespace}
+        select a.appId as appId,a.name as appName,a.mark as mark,l.id as languageId,
+        a.createTime as createTime,
+        l.name as languageType,a.projectNamespace as projectNamespace,
+        g.id as gitRepositoryId,
+        g.url as url,
+        g.username as username,
+        g.password as password
+        from application a,gitRepository g,Language l
+        where a.gitReositoryId=g.id and a.language=l.id and a.projectNamespace=#{projectNamespace}
     </select>
 
 </mapper>

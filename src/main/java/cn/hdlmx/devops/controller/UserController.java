@@ -1,5 +1,7 @@
 package cn.hdlmx.devops.controller;
 
+import cn.hdlmx.devops.emun.RoleEnum;
+import cn.hdlmx.devops.pojo.Developer;
 import cn.hdlmx.devops.pojo.Role;
 import cn.hdlmx.devops.pojo.User;
 import cn.hdlmx.devops.service.UserService;
@@ -22,8 +24,8 @@ public class UserController {
 
     @RequestMapping("save")
     public String save() {
-        Role role = new Role("1", "管理员");
-        User user = new User("1002", "muxin", "穆昕", "love68946hd", role);
+        Role role = new Role(RoleEnum.programManager);
+        User user = new Developer("1002", "muxin", "穆昕", "love68946hd");
         int result = userService.save(user);
         System.out.println();
         return result + "";

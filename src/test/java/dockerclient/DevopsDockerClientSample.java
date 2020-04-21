@@ -13,7 +13,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
-public class DockerClientSample {
+public class DevopsDockerClientSample {
+    public static final String HarborServerAddress = "hub.devops.com";
 
     @Test
     public void pull() {
@@ -36,20 +37,52 @@ public class DockerClientSample {
     }
 
     @Test
-    public void build() throws DockerCertificateException, InterruptedException, DockerException, IOException {
+    public String build(String dockerFileDir, String tag) throws DockerCertificateException, InterruptedException, DockerException, IOException {
+        /*读取DOCKER_HOST的环境变脸，创建docker客户端，并建立连接*/
         final DockerClient dockerClient = DefaultDockerClient.fromEnv().build();
+        /*读取Dockerfile所在的目录，创建Dockerfile对象*/
         File dockerFile = new File("D:" + File.separator + "mastersDegreeWorkSpace" + File.separator + "springboot-app");
         Path dockerFilePath = dockerFile.toPath();
-        DockerClient.BuildParam buildParam = new DockerClient.BuildParam("t", "hub.devops.com/library/springboot-app:v2");
-        String imagesId = dockerClient.build(dockerFilePath, buildParam);
-        System.out.println(imagesId);
+        /*docker客户端发起build命令创建docker镜像，并给镜像打上tag*/
+        DockerClient.BuildParam buildParam = new DockerClient.BuildParam("t", "hub.devops.com/springboot-app/main-app:v5");
+        return dockerClient.build(dockerFilePath, buildParam);
+    }
+
+    /**
+     * @param dockerFileDir
+     * @param tag
+     */
+    public String buildImage(String dockerFileDir, String tag) throws Exception {
+        /*读取DOCKER_HOST的环境变脸，创建docker客户端，并建立连接*/
+        final DockerClient dockerClient = DefaultDockerClient.fromEnv().build();
+        /*读取Dockerfile所在的目录，创建Dockerfile对象*/
+        File dockerFile = new File(dockerFileDir);
+        Path dockerFilePath = dockerFile.toPath();
+        /*docker客户端发起build命令创建docker镜像，并给镜像打上tag*/
+        DockerClient.BuildParam buildParam = new DockerClient.BuildParam("t", tag);
+        /*返回ImageId*/
+        return dockerClient.build(dockerFilePath, buildParam);
     }
 
     @Test
-    public void push() throws DockerCertificateException, DockerException, InterruptedException {
+    /**
+     * */
+    public void push(String username, String pw, String image) throws DockerCertificateException, DockerException, InterruptedException {
         final DockerClient dockerClient = DefaultDockerClient.fromEnv().build();
         final RegistryAuth registryAuth = RegistryAuth.create("handong", "hdlmx522104HB", "hdlmxos@163.com", "hub.devops.com", null, "aGFuZG9uZzpoZGxteDUyMjEwNEhC");
-        dockerClient.push("hub.devops.com/springboot-app/main-app:v1", registryAuth);
+        dockerClient.push("hub.devops.com/springboot-app/main-app:v5", registryAuth);
+    }
+
+    /**
+     * @param username 镜像仓库用户名
+     * @param pw       镜像仓库密码
+     * @param image    需要推送的镜像
+     */
+    public void pushImage(String username, String pw, String image) throws Exception {
+        final DockerClient dockerClient = DefaultDockerClient.fromEnv().build();
+        /**/
+        final RegistryAuth registryAuth = RegistryAuth.create(username, pw, null, HarborServerAddress, null, null);
+        dockerClient.push(image, registryAuth);
     }
 
     @Test
@@ -61,5 +94,9 @@ public class DockerClientSample {
                 .email("990489713@qq.com")
                 .serverAddress("hub.devops.com").build();
         dockerClient.push("hub.devops.com/test/springboot-app:v1", registryAuth);
+    }
+
+    public void newNamespace() {
+
     }
 }

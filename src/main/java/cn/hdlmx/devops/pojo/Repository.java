@@ -5,7 +5,7 @@ package cn.hdlmx.devops.pojo;
  * @version 1.0
  * @date 2019/11/15 15:53
  */
-public class Repository {
+public abstract class Repository {
     private int id;
     /**
      * 仓库rul

@@ -46,4 +46,9 @@ public class ProjectController {
         int result = projectService.existNewNamespace(namespace);
         return RetResponse.makeOKResponse(result);
     }
+
+    @RequestMapping(value = "/project/member", method = RequestMethod.POST)
+    public RetResult addProjectMember(@PathVariable("projectId") String User) {
+        return RetResponse.makeOKResponse();
+    }
 }
